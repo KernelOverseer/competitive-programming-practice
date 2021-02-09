@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef unsigned long long ull;
+typedef long long ll;
+typedef unsigned int uint;
+typedef unsigned char uchar;
+
+// #define DEBUG
+#define MOD 1000000007
+
+int main(void)
+{
+	//freopen("whereami.in", "r", stdin);
+	//freopen("whereami.out", "w", stdout);
+	int n;
+	string s;
+	int l;
+
+	map<string, int> cows;
+	cin >> n;
+	while(n--)
+	{
+		cin >> s >> l;
+		cows[s]+=l;
+	}
+	vector < pair<int, string> > cow_sorted;
+	for (auto c: cows)
+	{
+		cout << c.first << " : " << c.second << endl;
+		cow_sorted.push_back(make_pair(c.second, c.first));
+	}
+	sort(cow_sorted.begin(), cow_sorted.end());
+	int lowest = cow_sorted[0].first;
+	auto result = upper_bound(cow_sorted.begin(), cow_sorted.end(), lowest, [](int value, const pair<int, string>& cow){return value < cow.first;});
+	cout << result->second << endl;
+	return (0);
+}
